@@ -8,7 +8,6 @@ import { IoArrowForward, IoArrowBack } from "react-icons/io5";
 import axios from "axios";
 import { CartContext } from "../context/CartContext";
 import toast, { Toaster } from "react-hot-toast";
-// Function to generate random food
 
 function FoodCopy() {
   const [dishes, setDishes] = useState([]);
@@ -18,7 +17,6 @@ function FoodCopy() {
   const [totalPages, setTotalPages] = useState(1);
   const { addToCart } = useContext(CartContext);
   const cart = useContext(CartContext);
-  console.log(cart.cartItems);
 
   const getDishes = async (page, sortBy, mealtype) => {
     try {
@@ -60,7 +58,7 @@ function FoodCopy() {
 
   return (
     <div className=" bg-[#FFF5E2] py-12">
-      <div className="w-[1200px] mx-auto">
+      <div className="max-w-[1200px] mx-auto">
         <div
           className="h-[250px] bg-cover bg-center m-auto p-10 flex justify-center items-center rounded-2xl"
           style={{ backgroundImage: `url(${FilterImg})` }}
@@ -75,8 +73,8 @@ function FoodCopy() {
             <div>
               <div className="border border-gray-300 p-5 rounded-lg">
                 <div className="flex flex-col gap-4">
-                  <div className="flex justify-between">
-                    <div className="relative h-12 w-72 min-w-[200px]">
+                  <div className="flex justify-between flex-wrap">
+                    <div className="relative h-12 min-w-[200px] w-full lg:w-72 md:w-72 mb-4 lg:mb-0 md:mb-0">
                       <select
                         className="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 empty:!bg-gray-900 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
                         value={sortBy}
@@ -91,7 +89,7 @@ function FoodCopy() {
                       </label>
                     </div>
 
-                    <div className="relative h-12 w-72 min-w-[200px]">
+                    <div className="relative h-12 w-full lg:w-72 md:w-72">
                       <select
                         className="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 empty:!bg-gray-900 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
                         value={mealtype}
@@ -107,19 +105,6 @@ function FoodCopy() {
                         Meal Type
                       </label>
                     </div>
-
-                    {/* <div className="relative h-12 w-72 min-w-[200px]">
-                      <select className="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 empty:!bg-gray-900 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50">
-                        <option value="brazil">Breakfast</option>
-                        <option value="bucharest">Lunch</option>
-                        <option value="london">Dinner</option>
-                        <option value="london">Snacks</option>
-                        <option value="london">Drinks</option>
-                      </select>
-                      <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
-                        Meal Type
-                      </label>
-                    </div> */}
                   </div>
                 </div>
               </div>
@@ -168,7 +153,7 @@ function FoodCopy() {
                           </h2>
                         </div> */}
                         <Button
-                        variant="outlined"
+                          variant="outlined"
                           className="border border-gray-300 rounded text-md py-2 text-gray-800"
                         >
                           ₹ {dish.price}

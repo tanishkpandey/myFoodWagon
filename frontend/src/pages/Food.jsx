@@ -11,7 +11,6 @@ import {
   TabPanel,
 } from "@material-tailwind/react";
 
-// Function to generate random food
 const generateFoodData = (count) => {
   const foodData = [];
   const locations = ["Location A", "Location B", "Location C"];

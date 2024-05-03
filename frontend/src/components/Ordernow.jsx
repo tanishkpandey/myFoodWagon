@@ -1,12 +1,10 @@
-import React from "react";
 import { FaAngleRight } from "react-icons/fa";
 function Ordernow() {
   return (
     <div className="bg-[#FEFAF1] py-12 border border-[#f1722833] ">
-      <div className="max-w-[1200px] flex justify-between items-center mx-auto">
-
-        <h1 className="text-3xl font-bold text-[#F17228] ">
-          Are you ready to order with the best Food 😋?
+      <div className="max-w-[1200px] flex flex-wrap justify-center lg:justify-between items-center mx-auto">
+        <h1 className="text-3xl font-bold mr-3 mb-4 md:mb-0  lg:mb-0 text-[#F17228] ">
+          Are you ready to order😋 ?
         </h1>
 
         <button
@@ -16,7 +14,6 @@ function Ordernow() {
         >
           Get Started <FaAngleRight className="text-xl" />
         </button>
-
       </div>
     </div>
   );

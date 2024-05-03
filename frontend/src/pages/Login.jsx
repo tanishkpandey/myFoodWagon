@@ -2,7 +2,11 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import axios from "axios";
+import Tooltiphelp from "../components/Tooltiphelp";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 function Login() {
+  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
   const [loginFormField, setLoginFormField] = useState({
     email: "",
     password: "",
@@ -23,6 +27,7 @@ function Login() {
       if (response.status === 200) {
         const { token } = response.data;
         localStorage.setItem("authToken", token);
+        setIsAuthenticated(true);
         navigate("/food");
         toast.success("Successfully logged in!");
       }
@@ -36,9 +41,12 @@ function Login() {
   return (
     <div className="p-[2rem] bg-[#FFF5E2]">
       <div className="relative p-[2rem] mx-auto w-[450px] m-10 flex flex-col bg-white text-gray-700 bg-transparent rounded-xl bg-clip-border shadow-xl">
-        <h4 className="block   text-2xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
-          Login
-        </h4>
+        <div className="flex justify-between items-center">
+          <h4 className="block   text-2xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
+            Login
+          </h4>
+          <Tooltiphelp />
+        </div>
 
         <form
           className="max-w-screen-lg mt-8 mb-2 w-80 sm:w-96"

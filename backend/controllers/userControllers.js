@@ -30,7 +30,6 @@ const loginUser = async (req, res) => {
 const signupUser = async (req, res) => {
   try {
     const { email, password, name } = req.body;
-    console.log(email, password, name);
     const emailExists = await UserModel.findOne({ email: email });
     if (emailExists) {
       return res.status(200).send("User Already Exists");
@@ -56,7 +55,6 @@ const signupUser = async (req, res) => {
 const forgotPassword = (req, res) => {
   try {
     const { email } = req.body;
-    console.log(email);
 
     res.send("THis is forgot password page").status(200);
   } catch (error) {

@@ -5,7 +5,7 @@ export function Footer() {
     <footer className="w-full bg-white p-8 max-w-[1300px] mx-auto">
       <div className="flex flex-row flex-wrap items-center justify-center gap-y-6 gap-x-12 bg-white text-center md:justify-between">
         <img src={Logo} alt="logo-ct" className="h-8" />
-        <Typography color="blue-gray" className="text-center font-normal">
+        <Typography color="blue-gray" className="text-center text-sm text-gray-500 font-normal">
           FoodWagon, A project by Tanishk Pandey
         </Typography>
       </div>

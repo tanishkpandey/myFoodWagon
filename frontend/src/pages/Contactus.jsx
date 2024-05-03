@@ -5,7 +5,7 @@ import { MdEmail } from "react-icons/md";
 const Contactus = () => {
   return (
     <div className="bg-[#FFF5E2] py-[5rem] px-4 md:px-0 flex justify-center items-center   overflow-hidden">
-      <div className="form max-w-screen-lg mx-auto bg-white rounded-xl shadow-lg h-[500px] grid md:grid-cols-2">
+      <div className="form max-w-screen-lg mx-auto bg-white rounded-xl shadow-lg  grid md:grid-cols-2">
         <div className="contact-form bg-[#FFB607] rounded-tl-lg rounded-bl-lg  relative">
           <div className="circle one absolute rounded-full bg-gradient-to-br from-transparent to-[#F17228] w-10 h-10 top-16 right-14"></div>
           <div className="circle two absolute rounded-full bg-gradient-to-br from-transparent to-[#F17228] w-16 h-16 top-0 right-0"></div>
@@ -69,15 +69,15 @@ const Contactus = () => {
           </p>
           <div className="information flex items-center text-gray-600 mt-12 gap-2">
             <FaLocationDot className="text-[#F17228]" />
-            <p>Jharsa Village, Gurugram, Haryana, India</p>
+            <p>Chhatarpur, New Delhi, India</p>
           </div>
           <div className="information flex items-center text-gray-600 gap-2 mt-4">
             <IoCall className="text-[#F17228]" />
-            <p>+123 456 7890</p>
+            <p>+91 45645 67890</p>
           </div>
           <div className="information flex items-center text-gray-600 gap-2 mt-4">
             <MdEmail className="text-[#F17228]" />
-            <p>info@example.com</p>
+            <p>pandeytanishk@gmail.com</p>
           </div>
         </div>
       </div>

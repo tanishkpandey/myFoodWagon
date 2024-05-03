@@ -13,16 +13,16 @@ const getDishes = async (req, res) => {
 
     switch (sort) {
       case "price-asc":
-        sortConfig = { price: 1 }; // Low to high
+        sortConfig = { price: 1 }; 
         break;
       case "price-desc":
-        sortConfig = { price: -1 }; // High to low
+        sortConfig = { price: -1 }; 
         break;
       case "rating-desc":
         sortConfig = { rating: -1 };
         break;
       default:
-        sortConfig = { foodname: 1 }; // Default fallback
+        sortConfig = { foodname: 1 };
         break;
     }
 

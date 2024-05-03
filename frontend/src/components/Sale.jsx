@@ -4,7 +4,6 @@ import Sale2 from "../assets/Sale2.png";
 import Sale3 from "../assets/Sale3.png";
 import Sale4 from "../assets/Sale4.png";
 
-// Card component to handle hover effect
 const Card = ({ image, title, remaining }) => {
   const [hovered, setHovered] = useState(false);
 
