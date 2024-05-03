@@ -123,7 +123,10 @@ function TransactionsTable({ cartItems }) {
               Rs. {totalAmount}
             </span>
           </Typography>
-          <Button size="sm" className="bg-[#F17228] hover:opacity-100">
+          <Button
+            size="sm"
+            className="rounded-md bg-[#F17228]  hover:opacity-100"
+          >
             Checkout
           </Button>
         </div>

@@ -3,10 +3,11 @@ import { IoLocationSharp } from "react-icons/io5";
 import Restaurant from "../assets/restaurant.png";
 import FilterImg from "../assets/FilterImg.png";
 import { useContext, useEffect, useState } from "react";
-import { IconButton, Typography } from "@material-tailwind/react";
+import { Button, IconButton, Typography } from "@material-tailwind/react";
 import { IoArrowForward, IoArrowBack } from "react-icons/io5";
 import axios from "axios";
 import { CartContext } from "../context/CartContext";
+import toast, { Toaster } from "react-hot-toast";
 // Function to generate random food
 
 function FoodCopy() {
@@ -127,22 +128,17 @@ function FoodCopy() {
                 {dishes.map((dish, index) => (
                   <div
                     key={index}
-                    className="relative flex flex-col text-gray-700 bg-white bg-clip-border rounded-xl transition-transform duration-300 ease-in-out hover:-translate-y-2 hover:shadow-md "
+                    className="relative flex flex-col border border-white text-gray-700 bg-white bg-clip-border rounded-xl transition-transform duration-300 ease-in-out hover:-translate-y-1 hover:shadow-md hover:border-gray-200"
                   >
                     <div className="relative flex flex-col  text-gray-700 bg-white bg-clip-border rounded-xl">
-                      <div className="relative h-48 mx-4 mt-6 overflow-hidden text-white bg-clip-border rounded-xl bg-blue-500 shadow-blue-gray-500/40">
+                      <div className="relative h-56 mx-4 mt-4 overflow-hidden text-white bg-clip-border rounded-xl bg-white shadow-blue-gray-500/40">
                         <div className="relative">
                           <img
                             src={dish.image}
                             alt={dish.foodname}
                             className="absolute z-10"
                           />
-                          <div className="bg-[#FFB30E] absolute z-20  rounded flex items-center px-2 py-1 top-3 left-28">
-                            <span className=" font-medium  tracking-tighter flex justify-center items-center gap-2">
-                              <FaClock />
-                              Fast
-                            </span>
-                          </div>
+
                           <div className="bg-[#F17228] absolute z-20  rounded flex items-center px-2 py-1 top-3 left-3">
                             <span className=" font-medium  tracking-tighter flex justify-center items-center gap-2">
                               <FaTag />
@@ -151,41 +147,41 @@ function FoodCopy() {
                           </div>
                         </div>
                       </div>
-                      <div className="py-3 px-6 flex gap-4 items-center">
-                        <img
-                          src={Restaurant}
-                          alt="Restaurant"
-                          className="w-10 h-10"
-                        />
+                      <div className="py-3 px-4 flex gap-4 justify-between items-start">
                         <div>
-                          <h4 className="text-lg font-bold">{dish.foodname}</h4>
-                          <h5 className="items-center text-[#F17228] flex gap-2 font-medium">
+                          <h4 className="text-xl font-bold">{dish.foodname}</h4>
+                          <h5 className="items-center opacity-80 text-sm text-[#F17228] flex gap-2 font-medium">
                             <IoLocationSharp /> {dish.restaurant}
                           </h5>
                         </div>
+                        <div className="py-0.5 px-2.5 text-sm bg-green-600 text-white rounded">
+                          <h4>{dish.rating}</h4>
+                        </div>
                       </div>
                       <div>
-                        <h2 className="text-lg font-bold text-center">
-                          {" "}
-                          {dish.mealtype} | {dish.calories} | {dish.rating}
-                        </h2>
+                        <h2 className="text-lg font-bold text-center"> </h2>
                       </div>
-                      <div>
-                        <h2 className="text-lg font-bold text-center">
-                          Rs {dish.price}
-                        </h2>
-                      </div>
-                      <div className="p-6 pt-0 ">
-                        <button
-                          className="block w-full select-none rounded-md bg-[#F17228] hover:bg-[#FFB30E] py-3.5 px-7 text-center align-middle  text-sm font-bold uppercase text-white transition-all hover:shadow-none  focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none mb-4"
-                          type="button"
-                          style={{
-                            boxShadow: "0px 3px 8px rgba(241, 114, 40, 0.5)",
+                      <div className="p-4 pt-0 flex items-center justify-between ">
+                        {/* <div className="">
+                          <h2 className="text-lg font-bold text-center p-2">
+                            Rs {dish.price}
+                          </h2>
+                        </div> */}
+                        <Button
+                        variant="outlined"
+                          className="border border-gray-300 rounded text-md py-2 text-gray-800"
+                        >
+                          ₹ {dish.price}
+                        </Button>
+                        <Button
+                          className="rounded-md bg-[#F17228]"
+                          onClick={() => {
+                            addToCart(dish);
+                            toast.success(`${dish.foodname} added to cart!`);
                           }}
-                          onClick={() => addToCart(dish)}
                         >
                           Add to cart
-                        </button>
+                        </Button>
                       </div>
                     </div>
                   </div>

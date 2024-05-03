@@ -11,10 +11,12 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 // import Food from "./pages/Food";
 import FoodCopy from "./pages/FoodCopy";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <div>
+      <Toaster position="top-right" />
       <Navbar />
       {/* <StickyNavbar/> */}
       <Routes>

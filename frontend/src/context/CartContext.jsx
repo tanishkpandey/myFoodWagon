@@ -19,10 +19,6 @@ export const CartProvider = (props) => {
     }
   };
 
-  const calculateTotal = (items) => {
-    return items.reduce((total, item) => total + parseInt(item.price), 0);
-  };
-
   return (
     <CartContext.Provider value={{ cartItems, addToCart }}>
       {props.children}
