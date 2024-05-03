@@ -2,91 +2,60 @@ import { FaClock, FaTag } from "react-icons/fa";
 import { IoLocationSharp } from "react-icons/io5";
 import Restaurant from "../assets/restaurant.png";
 import FilterImg from "../assets/FilterImg.png";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { IconButton, Typography } from "@material-tailwind/react";
 import { IoArrowForward, IoArrowBack } from "react-icons/io5";
-
+import axios from "axios";
+import { CartContext } from "../context/CartContext";
 // Function to generate random food
 
 function FoodCopy() {
   const [dishes, setDishes] = useState([]);
   const [sortBy, setSortBy] = useState("price-asc");
+  const [mealtype, setMealType] = useState("all-types");
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const { addToCart } = useContext(CartContext);
+  const cart = useContext(CartContext);
+  console.log(cart.cartItems);
 
-  const getDishes = async (page, sortBy) => {
+  const getDishes = async (page, sortBy, mealtype) => {
     try {
-      const response = await fetch(
-        `http://localhost:5000/api/dishes?page=${page}&sort=${sortBy}`
-      );
+      const params = {
+        page,
+        sort: sortBy,
+        ...(mealtype !== "all-types" && { mealtype }),
+      };
 
-      if (!response.ok) {
+      const response = await axios.get("http://localhost:5000/api/dishes", {
+        params,
+      });
+
+      if (response.status !== 200) {
         throw new Error("Failed to fetch dishes");
       }
 
-      const { dishes, totalPages } = await response.json();
+      const { dishes, totalPages } = response.data;
       setDishes(dishes);
       setTotalPages(totalPages);
-      console.log(totalPages);
     } catch (err) {
-      console.error("Error fetching dishes:", err);
+      console.log("An error occurred while fetching dishes.");
     }
-  };
-
-  const sortDishes = (data) => {
-    let sortedData;
-
-    switch (sortBy) {
-      case "price-asc":
-        sortedData = [...data].sort((a, b) => a.price - b.price); // Low to high
-        break;
-      case "price-desc":
-        sortedData = [...data].sort((a, b) => b.price - a.price); // High to low
-        break;
-      case "rating-desc":
-        sortedData = [...data].sort((a, b) => b.rating - a.rating); // High to low
-        break;
-      case "asc":
-        sortedData = [...data].sort((a, b) =>
-          a.foodname.localeCompare(b.foodname)
-        );
-        break;
-      case "desc":
-        sortedData = [...data].sort((a, b) =>
-          b.foodname.localeCompare(a.foodname)
-        );
-        break;
-      default:
-        sortedData = [...data].sort((a, b) =>
-          a.foodname.localeCompare(b.foodname)
-        );
-        break;
-    }
-    setDishes(sortedData);
   };
 
   const nextPage = () => {
     setPage(page + 1);
-
-    console.log("Next pe click");
   };
 
   const prevPage = () => {
     if (page > 1) {
       setPage(page - 1);
-      console.log("Prev pe click");
     }
   };
 
   useEffect(() => {
-    sortDishes(dishes);
-  }, [sortBy]);
-
-  useEffect(() => {
-    getDishes(page);
-  }, [page]);
-
-  console.log(dishes, page, totalPages);
+    getDishes(page, sortBy, mealtype);
+  }, [page, sortBy, mealtype]);
 
   return (
     <div className=" bg-[#FFF5E2] py-12">
@@ -101,7 +70,6 @@ function FoodCopy() {
         </div>
 
         <div className="bg-white p-8 rounded-xl mt-10 border border-gray-300">
-          
           <div>
             <div>
               <div className="border border-gray-300 p-5 rounded-lg">
@@ -113,8 +81,6 @@ function FoodCopy() {
                         value={sortBy}
                         onChange={(e) => setSortBy(e.target.value)}
                       >
-                        <option value="asc">Popularity</option>
-                        <option value="desc">Trending</option>
                         <option value="price-asc">Price: Low to High</option>
                         <option value="price-desc">Price: High to Low</option>
                         <option value="rating-desc">Rating: High to Low</option>
@@ -124,23 +90,22 @@ function FoodCopy() {
                       </label>
                     </div>
 
-                    {/* <div className="relative h-12 w-72 min-w-[200px]">
+                    <div className="relative h-12 w-72 min-w-[200px]">
                       <select
                         className="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 empty:!bg-gray-900 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
-                        value={sortBy}
-                        onChange={(e) => setSortBy(e.target.value)}
+                        value={mealtype}
+                        onChange={(e) => {
+                          setMealType(e.target.value);
+                        }}
                       >
-                        <option value="price-asc">North Indian Cuisine</option>
-                        <option value="price-desc">South Indian Cuisine</option>
-                        <option value="rating-desc">
-                          Western Indian Cuisine
-                        </option>
-                        <option value="desc">Eastern Indian Cuisine</option>
+                        <option value="all-types">All Meals</option>
+                        <option value="veg">Vegetarian</option>
+                        <option value="non-veg">Non-Vegetarian</option>
                       </select>
                       <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
-                        Category
+                        Meal Type
                       </label>
-                    </div> */}
+                    </div>
 
                     {/* <div className="relative h-12 w-72 min-w-[200px]">
                       <select className="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 empty:!bg-gray-900 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50">
@@ -154,7 +119,6 @@ function FoodCopy() {
                         Meal Type
                       </label>
                     </div> */}
-
                   </div>
                 </div>
               </div>
@@ -218,6 +182,7 @@ function FoodCopy() {
                           style={{
                             boxShadow: "0px 3px 8px rgba(241, 114, 40, 0.5)",
                           }}
+                          onClick={() => addToCart(dish)}
                         >
                           Add to cart
                         </button>

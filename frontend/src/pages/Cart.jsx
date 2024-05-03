@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import CartTable from "../components/CartTable";
-
+import TransactionsTable from "../components/TransactionsTable";
+import { CartContext } from "../context/CartContext";
+import { useContext } from "react";
 function Cart() {
-
+  const Items = useContext(CartContext);
+  console.log(Items.cartItems);
   return (
     <div className="bg-[#FFF5E2] py-10">
-      <CartTable  />
+      <TransactionsTable cartItems={Items.cartItems}/>
     </div>
   );
-
 }
 
 export default Cart;

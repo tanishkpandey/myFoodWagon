@@ -5,12 +5,37 @@ const getDishes = async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 8;
     const skip = (page - 1) * limit;
+    const mealtype = req.query.mealtype;
+    const sort = req.query.sort || price-asc;
 
-    const dishes = await DishesModel.find({})
+    let query = {};
+    let sortConfig = {};
+
+    switch (sort) {
+      case "price-asc":
+        sortConfig = { price: 1 }; // Low to high
+        break;
+      case "price-desc":
+        sortConfig = { price: -1 }; // High to low
+        break;
+      case "rating-desc":
+        sortConfig = { rating: -1 };
+        break;
+      default:
+        sortConfig = { foodname: 1 }; // Default fallback
+        break;
+    }
+
+    if (mealtype) {
+      query.mealtype = mealtype;
+    }
+
+    const dishes = await DishesModel.find(query)
       .skip(skip)
-      .limit(limit);
+      .limit(limit)
+      .sort(sortConfig);
 
-    const totalCount = await DishesModel.countDocuments();
+    const totalCount = await DishesModel.countDocuments(query);
 
     res.status(200).json({
       dishes,
