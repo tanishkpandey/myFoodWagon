@@ -15,7 +15,7 @@ function Home() {
       <Crousal />
       <Foodgrid />
       <Calltoaction />
-      {/* <Ordernow /> */}
+      <Ordernow />
     </div>
   );
 }

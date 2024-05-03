@@ -18,15 +18,13 @@ const TABLE_HEAD = ["Dishes", "Account", "Quantity"];
 const TABLE_ROWS = [];
 
 function TransactionsTable({ cartItems }) {
-  console.log(cartItems);
-
   const calculateTotal = (items) => {
     return items.reduce((total, item) => total + item.price * item.quantity, 0);
   };
 
   const totalAmount = calculateTotal(cartItems);
   return (
-    <Card className="h-full w-[90%] mx-auto">
+    <Card className="h-full max-w-[1200px] mx-auto">
       <CardHeader floated={false} shadow={false} className="rounded-none">
         <div className="my-2 flex flex-col justify-between gap-8 md:flex-row md:items-center">
           <div>

@@ -7,11 +7,18 @@ import { NavLink } from "react-router-dom";
 
 function Foodgrid() {
   return (
-    <div className="p-12">
-      <div className="w-[1200px] m-auto">
+    <div
+      className="p-12 border-t border-[#f1722833] "
+      style={{
+        background: "rgb(255,244,222)",
+        background:
+          "linear-gradient(184deg, rgba(255,244,222,1) 0%, rgba(255,253,250,1) 30%)",
+      }}
+    >
+      <div className="max-w-[1200px] m-auto">
         <div>
-          <h1 className="text-4xl font-bold text-center mb-3">
-            Browse food that you love
+          <h1 className="text-4xl font-bold text-center mb-3 text-[#F17228]">
+            Browse food that you Love
           </h1>
         </div>
 
@@ -19,10 +26,10 @@ function Foodgrid() {
           {foodData.map((food, index) => (
             <div
               key={index}
-              className="relative flex flex-col text-gray-700 bg-white bg-clip-border rounded-xl transition-transform duration-300 ease-in-out hover:-translate-y-2"
+              className="relative flex flex-col text-gray-700 bg-clip-border rounded-xl transition-transform duration-300 ease-in-out hover:-translate-y-2"
             >
-              <div className="relative flex flex-col  text-gray-700 bg-white bg-clip-border rounded-xl w-80">
-                <div className="relative h-60 mx-4 mt-6 overflow-hidden text-white bg-clip-border rounded-xl bg-blue-gray-500 shadow-blue-gray-500/40">
+              <div className="relative flex flex-col hover:shadow-lg text-gray-700 bg-clip-border rounded-xl max-w-90 min-w-60">
+                <div className="relative h-40 mx-4 mt-6 overflow-hidden text-white bg-clip-border rounded-xl bg-blue-gray-500 shadow-blue-gray-500/40">
                   <div className="relative">
                     <img
                       src={food.image}
@@ -57,7 +64,7 @@ function Foodgrid() {
                   </div>
                 </div>
                 <div className="p-6 pt-0 ">
-                  <button className="px-[18px] py-[3px] bg-[#78b93c2d] text-[#79B93C] rounded-md flex gap-2 font-bold justify-center items-center mt-3">
+                  <button className="px-[18px] w-full py-[3px] bg-[#78b93c2d] text-[#79B93C] rounded-md flex gap-2 font-bold justify-center items-center mt-3">
                     Restaurant Opened
                   </button>
                 </div>

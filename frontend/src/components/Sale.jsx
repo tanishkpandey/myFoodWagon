@@ -17,7 +17,7 @@ const Card = ({ image, title, remaining }) => {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <div className="relative h-56 mx-4 mt-6 mb-3 overflow-hidden cursor-pointer text-white bg-clip-border rounded-xl bg-blue-gray-500 shadow-blue-gray-500/40">
+      <div className="relative h-56 mx-2 mt-6 mb-3 overflow-hidden cursor-pointer text-white bg-clip-border rounded-xl bg-blue-gray-500 shadow-blue-gray-500/40">
         <div className="relative">
           <img src={image} alt="card-image" className="absolute z-10" />
           <div className="bg-[#Ffb30e] absolute z-20 bottom-[-14.75rem] rounded-tr-2xl flex items-center gap-2 p-3">
@@ -46,7 +46,7 @@ const Card = ({ image, title, remaining }) => {
 function Sale() {
   return (
     <div>
-      <div className="card-container w-[1200px] m-auto flex my-12">
+      <div className="card-container max-w-[1280px] m-auto flex my-12 flex-wrap justify-center">
         <Card image={Sale1} title="Fresh Salad" remaining="6 Days Remaining" />
         <Card image={Sale2} title="Tomato Pasta" remaining="6 Days Remaining" />
         <Card image={Sale3} title="Fresh Salad" remaining="5 Days Remaining" />

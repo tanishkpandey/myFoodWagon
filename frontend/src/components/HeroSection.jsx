@@ -9,9 +9,9 @@ function HeroSection() {
       className="h-[500px] bg-cover bg-center m-auto p-10 flex justify-start items-center"
       style={{ backgroundImage: `url(${HeaderImg})` }}
     >
-      <div className="w-[1200px] m-auto">
+      <div className="max-w-[1200px] w-[100%] m-auto">
         <div className="mb-4">
-          <h1 className="text-5xl font-bold text-[#F17228] mb-4">
+          <h1 className="text-5xl font-bold text-white mb-4">
             Satisfy your Cravings!!
           </h1>
           <p className="text-lg text-gray-700">
@@ -20,7 +20,7 @@ function HeroSection() {
           </p>
         </div>
 
-        <div className="w-[600px] p-[24px] bg-white rounded-lg shadow-md">
+        <div className="max-w-[600px] p-[24px] bg-white rounded-lg shadow-md">
           <div className="flex justify-start flex-col">
             <div className="flex gap-4 ">
               <button className="px-[24px] py-[10px] bg-[#fef1e9] text-[#F17228] rounded-md flex gap-2 font-bold justify-center items-center">
@@ -56,7 +56,7 @@ function HeroSection() {
                 <NavLink to="/food">
                   <button className="w-[100%] px-[24px] py-[10px] flex gap-2 bg-[#F17228] justify-center items-center font-bold text-white rounded-md shadow-md hover:bg-[#FFB30E] transition duration-300">
                     <IoSearch />
-                    Find Food
+                    Find
                   </button>
                 </NavLink>
               </div>

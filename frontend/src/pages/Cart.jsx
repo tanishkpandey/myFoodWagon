@@ -5,8 +5,8 @@ function Cart() {
   const Items = useContext(CartContext);
   console.log(Items.cartItems);
   return (
-    <div className="bg-[#FFF5E2] py-10">
-      <TransactionsTable cartItems={Items.cartItems}/>
+    <div className="bg-[#FFF5E2] py-10 ">
+      <TransactionsTable cartItems={Items.cartItems} />
     </div>
   );
 }
