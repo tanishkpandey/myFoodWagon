@@ -41,6 +41,15 @@ function Navbar() {
             </NavLink>
           </li>
           <li>
+            <NavLink
+              to="/orderhistory"
+              className="p-2"
+              onClick={() => setOpenNav(false)}
+            >
+              Orders
+            </NavLink>
+          </li>
+          <li>
             <Button
               className="bg-[#F17228] text-white px-4 py-2 rounded"
               onClick={handleLogout}

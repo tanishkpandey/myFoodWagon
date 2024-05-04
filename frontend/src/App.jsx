@@ -11,6 +11,7 @@ import SignUp from "./pages/SignUp";
 import FoodCopy from "./pages/FoodCopy";
 import { Toaster } from "react-hot-toast";
 import ProtectedRoutes from "./components/ProtectedRoutes";
+import OrderHistory from "./pages/Orderhistory";
 function App() {
   return (
     <div>
@@ -21,6 +22,7 @@ function App() {
         <Route element={<ProtectedRoutes />}>
           <Route path="/food" element={<FoodCopy />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/orderhistory" element={<OrderHistory />} />
         </Route>
         <Route path="/contactus" element={<ContactForm />} />
         <Route path="/login" element={<Login />} />

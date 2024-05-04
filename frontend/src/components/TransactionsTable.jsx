@@ -1,3 +1,5 @@
+import axios from "axios";
+import toast from "react-hot-toast";
 import {
   Card,
   CardHeader,
@@ -7,66 +9,104 @@ import {
   CardFooter,
   Button,
 } from "@material-tailwind/react";
+// import { useNavigate } from "react-router-dom";
+// import { useUser } from "../context/UserContext";
+// import React, { useContext } from "react";
 
-const TABLE_HEAD = ["Dishes", "Account", "Quantity"];
+const TransactionsTable = ({ cartItems }) => {
+  // const { user } = useContext(useUser);
+  // const navigate = useNavigate();
 
-const TABLE_ROWS = [];
-
-function TransactionsTable({ cartItems }) {
   const calculateTotal = (items) => {
     return items.reduce((total, item) => total + item.price * item.quantity, 0);
   };
 
   const totalAmount = calculateTotal(cartItems);
+
+  const createOrder = async () => {
+    if (!user) {
+      toast.error("No user logged in.");
+      return;
+    }
+
+    if (cartItems.length === 0) {
+      toast.error("Your cart is empty.");
+      return;
+    }
+
+    const formattedItems = cartItems.map((item) => ({
+      foodName: item.foodname,
+      quantity: item.quantity,
+      price: item.price,
+    }));
+
+    const orderData = {
+      user: user._id,
+      items: formattedItems,
+      totalAmount: totalAmount,
+    };
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/orders/create",
+        orderData
+      );
+
+      if (response.status === 201) {
+        toast.success("Order created successfully!");
+        navigate("/order-history");
+      } else {
+        throw new Error("Unexpected response from the server.");
+      }
+    } catch (error) {
+      console.error("Error creating order:", error);
+      toast.error("Error creating order. Please try again later.");
+    }
+  };
+
   return (
     <Card className="h-full max-w-[1200px] mx-auto">
       <CardHeader floated={false} shadow={false} className="rounded-none">
-        <div className="my-2 flex flex-col justify-between gap-8 md:flex-row md:items-center">
-          <div>
-            <Typography variant="h5" color="blue-gray">
-              My Cart
-            </Typography>
-            <Typography color="gray" className="mt-1 font-normal">
-              These are items that you have added to cart.
-            </Typography>
-          </div>
-        </div>
+        <Typography variant="h5" color="blue-gray">
+          My Cart
+        </Typography>
+        <Typography color="gray" className="mt-1 font-normal">
+          These are items that you have added to the cart.
+        </Typography>
       </CardHeader>
 
       <CardBody className="overflow-scroll h-[450px] px-0">
         <table className="w-full min-w-max table-auto text-left">
           <thead>
-            <tr>
-              {TABLE_HEAD.map((head) => (
-                <th
-                  key={head}
-                  className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
+            {["Dishes", "Account", "Quantity"].map((head) => (
+              <th
+                key={head}
+                className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
+              >
+                <Typography
+                  variant="small"
+                  color="blue-gray"
+                  className="font-normal leading-none opacity-70"
                 >
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal leading-none opacity-70"
-                  >
-                    {head}
-                  </Typography>
-                </th>
-              ))}
-            </tr>
+                  {head}
+                </Typography>
+              </th>
+            ))}
           </thead>
           <tbody>
-            {cartItems.map(({ image, foodname, price, quantity }, index) => {
-              const isLast = index === TABLE_ROWS.length - 1;
-              const classes = isLast
+            {cartItems.map((item, index) => {
+              const isLast = index === cartItems.length - 1;
+              const rowClass = isLast
                 ? "p-4"
                 : "p-4 border-b border-blue-gray-50";
 
               return (
-                <tr key={foodname}>
-                  <td className={classes}>
+                <tr key={item.foodname}>
+                  <td className={rowClass}>
                     <div className="flex items-center gap-3">
                       <Avatar
-                        src={image}
-                        alt={foodname}
+                        src={item.image}
+                        alt={item.foodname}
                         size="md"
                         className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
                       />
@@ -75,26 +115,26 @@ function TransactionsTable({ cartItems }) {
                         color="blue-gray"
                         className="font-bold"
                       >
-                        {foodname}
+                        {item.foodname}
                       </Typography>
                     </div>
                   </td>
-                  <td className={classes}>
+                  <td className={rowClass}>
                     <Typography
                       variant="small"
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {price}
+                      Rs. {item.price}
                     </Typography>
                   </td>
-                  <td className={classes}>
+                  <td className={rowClass}>
                     <Typography
                       variant="small"
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {quantity}
+                      {item.quantity}
                     </Typography>
                   </td>
                 </tr>
@@ -111,7 +151,7 @@ function TransactionsTable({ cartItems }) {
             color="blue-gray"
             className="font-normal text-gray-500"
           >
-            Total Amount:{" "}
+            Total Amount:
             <span className="text-xl ml-1 text-green-500">
               Rs. {totalAmount}
             </span>
@@ -119,6 +159,7 @@ function TransactionsTable({ cartItems }) {
           <Button
             size="sm"
             className="rounded-md bg-[#F17228]  hover:opacity-100"
+            onClick={createOrder}
           >
             Checkout
           </Button>
@@ -126,6 +167,6 @@ function TransactionsTable({ cartItems }) {
       </CardFooter>
     </Card>
   );
-}
+};
 
 export default TransactionsTable;

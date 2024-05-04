@@ -37,14 +37,14 @@ function SignUp() {
   return (
     <div>
       <div className="p-[2rem] bg-[#FFF5E2]">
-        <div className="relative p-[2rem] mx-auto w-[450px] m-10 flex flex-col bg-white text-gray-700 bg-transparent rounded-xl bg-clip-border shadow-xl">
+        <div className="relative p-[2rem] mx-auto max-w-[450px] m-10 flex flex-col bg-white text-gray-700 bg-transparent rounded-xl bg-clip-border shadow-xl">
           <h4 className="block   text-2xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
             SignUp
           </h4>
 
           <form
             onSubmit={submitHandler}
-            className="max-w-screen-lg mt-8 mb-2 w-80 sm:w-96"
+            className="mt-8 mb-2 max-w-70 sm:w-96"
           >
             <div className="flex flex-col gap-6 mb-1">
               <h6 className="block -mb-3   text-base antialiased font-semibold leading-relaxed tracking-normal text-blue-gray-900">
