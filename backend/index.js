@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(cors());
 
 mongoose
-  .connect("mongodb://localhost:27017/foodwagon")
+  .connect("mongodb+srv://pandeytanishk:pandeytanishk@cluster0.os20vht.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
   .then(() => console.log("DB connected successfully....."));
 
 app.use("/api", userRouter);
