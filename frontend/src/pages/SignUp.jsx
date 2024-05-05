@@ -19,7 +19,7 @@ function SignUp() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/signup",
+        "https://my-food-wagon.vercel.app/api/signup",
         signupFormField
       );
 

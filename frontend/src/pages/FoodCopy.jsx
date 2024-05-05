@@ -26,7 +26,7 @@ function FoodCopy() {
         ...(mealtype !== "all-types" && { mealtype }),
       };
 
-      const response = await axios.get("http://localhost:5000/api/dishes", {
+      const response = await axios.get("https://my-food-wagon.vercel.app/api/dishes", {
         params,
       });
 

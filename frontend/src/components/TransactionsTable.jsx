@@ -48,7 +48,7 @@ const TransactionsTable = ({ cartItems }) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/orders/create",
+        "https://my-food-wagon.vercel.app/api/orders/create",
         orderData
       );
 
